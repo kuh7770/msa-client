@@ -1,0 +1,9 @@
+server:
+  port: 4671
+
+spring:
+  application:
+    name: kasha
+  cloud:
+    config:
+      uri: ${vcap.services.configuration-service.credentials.uri:http://localhost:4670}
