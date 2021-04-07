@@ -1,11 +1,26 @@
+logging:
+  level:
+    root: info
 spring:
+  #Spring cloud config, prefix name
   application:
     name: config
+  #Spring cloud 관련 설정
   cloud:
     config:
       uri: http://localhost:4670
-  rabbitmq: #RabbitMQ 관련 설정
+  #RabbitMQ 관련 설정
+  rabbitmq:
     host: localhost
     port: 5672
     username: admin
     password: 123456
+  #Redis 관련 설정
+  redis:
+    port: 6379
+    host: localhost
+    lettuce:
+      pool:
+        max-active: 10
+        max-idle: 10
+        min-idle: 2

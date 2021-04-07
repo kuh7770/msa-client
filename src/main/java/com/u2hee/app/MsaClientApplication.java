@@ -1,4 +1,4 @@
-package com.kasha.msaclient;
+package com.u2hee.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
