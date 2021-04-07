@@ -1,9 +1,11 @@
-server:
-  port: 4671
-
 spring:
   application:
-    name: kasha
+    name: config
   cloud:
     config:
-      uri: ${vcap.services.configuration-service.credentials.uri:http://localhost:4670}
+      uri: http://localhost:4670
+  rabbitmq: #RabbitMQ 관련 설정
+    host: localhost
+    port: 5672
+    username: admin
+    password: 123456
