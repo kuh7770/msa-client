@@ -2,6 +2,9 @@ logging:
   level:
     root: info
 spring:
+  profiles: local
+  devtools:
+    add-properties: false
   #Spring cloud config, prefix name
   application:
     name: config
@@ -9,6 +12,8 @@ spring:
   cloud:
     config:
       uri: http://localhost:4670
+      #Config서버에서 prop를 로드할 수 없을 경우 서버를 실행하지 않음
+      fail-fast: true
   #RabbitMQ 관련 설정
   rabbitmq:
     host: localhost
