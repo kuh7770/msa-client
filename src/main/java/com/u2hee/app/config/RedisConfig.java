@@ -1,4 +1,4 @@
-package com.u2hee.app.controller.config;
+package com.u2hee.app.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;

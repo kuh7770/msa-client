@@ -1,26 +1,35 @@
 logging:
   level:
     root: info
+    # log4jdbc 설정
+    jdbc: error
+    jdbc.sqlonly: info 
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss} %clr(%5level) %-45(%F) %-45clr(%M:%line){cyan} # %msg%n'
+
 spring:
+  main:
+    allow-bean-definition-overriding: false
   profiles: local
   devtools:
     add-properties: false
-  #Spring cloud config, prefix name
+    livereload.enabled: false
+  # spring cloud config name alias
   application:
     name: config
-  #Spring cloud 관련 설정
+  # spring cloud 관련 설정
   cloud:
     config:
       uri: http://localhost:4670
-      #Config서버에서 prop를 로드할 수 없을 경우 서버를 실행하지 않음
+      # config서버에서 prop를 로드할 수 없을 경우 서버를 실행하지 않음
       fail-fast: true
-  #RabbitMQ 관련 설정
+  # rabbitMQ 관련 설정
   rabbitmq:
     host: localhost
     port: 5672
     username: admin
     password: 123456
-  #Redis 관련 설정
+  # redis 관련 설정
   redis:
     port: 6379
     host: localhost
@@ -29,3 +38,42 @@ spring:
         max-active: 10
         max-idle: 10
         min-idle: 2
+  # database 관련 설정
+  datasource:
+    hikari:
+      #driver-class-name: com.mysql.cj.jdbc.Driver
+      driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+      #connection-timeout: 10000
+      #validation-timeout: 10000
+      #minimum-idle: 5
+      #maximum-pool-size: 10
+      #max-lifetime: 30000
+      #idle-timeout: 10000
+      #jdbc-url: jdbc:mysql://localhost:3306/u2hee
+      jdbc-url: jdbc:log4jdbc:mysql://localhost:3306/u2hee
+      username: root
+      password: pwroot
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    # open-in-view [영속성 컨텍스트 생존 범위]
+    ## true [transaction 이후 entity를 view layer에서 사용가능, lazy loading 가능]
+    ## false [transaction 종료할 때 entity closed]
+    open-in-view: true
+    # generate-ddl [entity라고 명시된 annotation을 찾아 table생성]
+    generate-ddl: true
+    # log4jdbc로 대체
+    show-sql: false
+    hibernate:
+      # ddl-auto [generate-ddl 실행 옵션 값]
+      ## none [실행하지 않음]
+      ## create-drop [어플리케이션이 구동되고 Session이 시작될때 drop -> create 이 실행되고, Session이 종료될때 (어플리케이션 종료) drop]
+      ## create [어플리케이션이 구동되고 Session이 시작될때 drop -> create 이 실행]
+      ## update [스키마가 변경된 경우에만 실행]
+      ## validate [변경여부 확인 후 출력, 어플리케이션은 종료]
+      ddl-auto: update
+    properties:
+      hibernate:
+        # log4jdbc로 대체
+        show_sql: false
+        format_sql: false
+        use_sql_comments: false
